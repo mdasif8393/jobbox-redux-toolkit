@@ -8,14 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  console.log(process.env)
   const dispatch = useDispatch();
   const {isLoading} = useSelector(state => state.auth);
   
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user){
-        console.log(user)
         dispatch(getUser(user.email));
       }
       else{

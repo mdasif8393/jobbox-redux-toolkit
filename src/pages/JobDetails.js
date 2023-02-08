@@ -1,8 +1,18 @@
 import React from "react";
-
+import {useParams} from "react-router-dom";
 import meeting from "../assets/meeting.jpg";
 import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
+import { useJobByIdQuery } from "../features/job/jobApi";
+
 const JobDetails = () => {
+  const {id} = useParams()
+  const {data, isLoading, isError} = useJobByIdQuery(id);
+
+  if(isLoading) {
+    <p>Loading...</p>
+  }
+
+  
   const {
     companyName,
     position,
@@ -17,11 +27,29 @@ const JobDetails = () => {
     overview,
     queries,
     _id,
-  } = {};
+  } = data.data || {};
+
+  console.log(companyName,
+    "position",position,
+    "location",location,
+    "experience",experience,
+    "workLevel",workLevel,
+    "employmentType",employmentType,
+    "salaryRange",salaryRange,
+    "skills",skills,
+    "requirements",requirements,
+    "responsibilities",responsibilities,
+    "overview",overview,
+    "overview",overview,
+    "_id",_id,)
 
   return (
     <div className='pt-14 grid grid-cols-12 gap-5'>
-      <div className='col-span-9 mb-10'>
+      <div className='flex justify-between items-center mt-5'>
+            <h1 className='text-xl font-semibold text-primary'>{position}</h1>
+            <button className='btn'>Apply</button>
+          </div>
+      {/* <div className='col-span-9 mb-10'>
         <div className='h-80 rounded-xl overflow-hidden'>
           <img className='h-full w-full object-cover' src={meeting} alt='' />
         </div>
@@ -165,7 +193,7 @@ const JobDetails = () => {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

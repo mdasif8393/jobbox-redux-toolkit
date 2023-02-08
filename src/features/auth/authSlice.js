@@ -18,10 +18,15 @@ export const createUser = createAsyncThunk(
     return data.user.email;
 });
 export const getUser = createAsyncThunk( "auth/getUser",  async (email) => {
-    console.log(email)
     const res = await fetch(`http://localhost:5000/user/${email}`);
     const data = await res.json();
-    return data.data;
+    if(data.status){
+        return data;
+    }
+    else{
+        return email;
+    }
+    
 });
 export const loginUser = createAsyncThunk(
     "auth/loginUser", 
@@ -111,8 +116,13 @@ const authSlice = createSlice({
             state.error = "";
         })
         .addCase(getUser.fulfilled, (state, {payload})=> {
-            state.isLoading = false;
-            state.user = payload; //get data from createUser
+            state.isLoading = false; 
+            if(payload.status){
+                state.user = payload.data;
+            }
+            else{
+                state.user.email = payload;
+            }
             state.isError = false;
             state.error = "";
         })

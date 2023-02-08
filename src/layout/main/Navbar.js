@@ -12,7 +12,6 @@ const Navbar = () => {
     user: {email, role}, 
   } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(role)
 
   const handleSignOut = () => {
     signOut(auth).then(() => {
