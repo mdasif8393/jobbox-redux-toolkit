@@ -5,6 +5,8 @@ import Loading from "../../components/reusable/Loading";
 import { useGetAppliedJobsQuery } from "../../features/job/jobApi";
 
 const AppliedJobs = () => {
+
+
   const {
     user: { email },
   } = useSelector((state) => state.auth);

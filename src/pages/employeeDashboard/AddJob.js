@@ -24,7 +24,7 @@ const AddJob = () => {
   const [postJob, {isLoading, isError}] = usePostJobMutation()
 
   const onSubmit = (data) => {
-    postJob(data);
+    postJob({...data, applicants: [], queries: []});
   };
 
   return (
