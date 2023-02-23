@@ -1,7 +1,6 @@
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { FiTrash } from "react-icons/fi";
-import { usePostJobMutation } from "../../features/job/jobApi";
 
 const AddJob = () => {
   const { handleSubmit, register, control } = useForm();
@@ -21,10 +20,8 @@ const AddJob = () => {
     remove: reqRemove,
   } = useFieldArray({ control, name: "requirements" });
 
-  const [postJob, {isLoading, isError}] = usePostJobMutation()
-
   const onSubmit = (data) => {
-    postJob({...data, applicants: [], queries: []});
+    console.log(data);
   };
 
   return (
@@ -47,8 +44,8 @@ const AddJob = () => {
             Company Name
           </label>
           <input
-            // disabled
-            // className='cursor-not-allowed'
+            disabled
+            className='cursor-not-allowed'
             type='text'
             id='companyName'
             {...register("companyName")}
