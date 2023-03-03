@@ -1,9 +1,11 @@
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { FiTrash } from "react-icons/fi";
+import { usePostJobMutation } from "../../features/job/jobApi";
 
 const AddJob = () => {
   const { handleSubmit, register, control } = useForm();
+  const [postJob, {isLoading, isError}] = usePostJobMutation();
   const {
     fields: resFields,
     append: resAppend,
@@ -21,7 +23,7 @@ const AddJob = () => {
   } = useFieldArray({ control, name: "requirements" });
 
   const onSubmit = (data) => {
-    console.log(data);
+    postJob({...data, applicants: [], queries: []})
   };
 
   return (
@@ -44,8 +46,6 @@ const AddJob = () => {
             Company Name
           </label>
           <input
-            disabled
-            className='cursor-not-allowed'
             type='text'
             id='companyName'
             {...register("companyName")}
